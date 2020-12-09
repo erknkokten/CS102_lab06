@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -5,6 +6,8 @@ public class lab06 {
     static ArrayList<String> binary;
 
     public static void main (String args[]){
+
+        File file = new File("D:\\EEE\\EE3.2\\ENG 401");
 
         Scanner scanner = new Scanner(System.in);
         String str;
@@ -35,6 +38,8 @@ public class lab06 {
                 binaryString(length,"");
 
             }
+            else if(n==4)
+                System.out.println(findNumberOfFiles(file, 0, 0,0));
         }while (n != 0);
     }
 
@@ -59,7 +64,7 @@ public class lab06 {
         else
             return 0 + findNonVowels(str.substring(1));
     }
-    
+
 
     public static void binaryString(int length, String str ){
 
@@ -83,6 +88,20 @@ public class lab06 {
         }
 
     }
+
+    public static int findNumberOfFiles(File file, int numOfFiles, int totalNumOfFiles, int notFileIndex){
+        if(file.listFiles().length == numOfFiles){
+                return totalNumOfFiles;
+        }
+        else if(file.listFiles()[numOfFiles].isFile())
+            return findNumberOfFiles(file, numOfFiles+1, totalNumOfFiles+1,notFileIndex);
+
+        else {
+
+            return findNumberOfFiles(new File(file.listFiles()[numOfFiles].toString()),0,0,0) + findNumberOfFiles(file, numOfFiles + 1, totalNumOfFiles, notFileIndex);
+        }
+    }
+
 
 
 }
