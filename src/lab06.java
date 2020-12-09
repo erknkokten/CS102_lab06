@@ -1,17 +1,41 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class lab06 {
+    static ArrayList<String> binary;
 
     public static void main (String args[]){
+
         Scanner scanner = new Scanner(System.in);
         String str;
-        System.out.print("Length will be counted:");
-        str = scanner.nextLine();
-        System.out.println(countLength(str));
+        int n;
 
-        System.out.print("Non-Vowels will be counted:");
-        str = scanner.nextLine();
-        System.out.println(findNonVowels(str));
+        do {
+            System.out.println("Menu: \n" +
+                    "1- Length\n" +
+                    "2- Non-Vowel Count\n" +
+                    "3- Binary\n" +
+                    "4- File");
+            n = scanner.nextInt();
+            scanner.nextLine();
+            if (n == 1) {
+                System.out.print("Length will be counted:");
+                str = scanner.nextLine();
+                System.out.println(countLength(str));
+            } else if (n == 2) {
+                System.out.print("Non-Vowels will be counted:");
+                str = scanner.nextLine();
+                System.out.println(findNonVowels(str));
+            }
+            else if(n == 3){
+                binary = new ArrayList<String>();
+                System.out.print("Enter the length of the binary string:");
+                int length = scanner.nextInt();
+                scanner.nextLine();
+                binaryString(length,"");
+
+            }
+        }while (n != 0);
     }
 
     public static int countLength(String str) {
@@ -35,4 +59,30 @@ public class lab06 {
         else
             return 0 + findNonVowels(str.substring(1));
     }
+    
+
+    public static void binaryString(int length, String str ){
+
+
+        if(str.length() == length){
+
+            System.out.println(str);
+        }
+        else if(!str.equals("")){
+            if(str.charAt(str.length()-1) == '1'){
+                binaryString(length, str + "0");
+            }
+            else if(str.charAt(str.length()-1) == '0' ){
+                binaryString(length, str + "1");
+                binaryString(length, str + "0");
+            }
+        }
+        else{
+            binaryString(length, str + "1");
+            binaryString(length, str + "0");
+        }
+
+    }
+
+
 }
